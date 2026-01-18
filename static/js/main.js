@@ -78,8 +78,12 @@ function calculatePrice(weight, makingCharge) {
 
 // Admin functionality
 function initializeAdmin() {
-    // Handle form submissions
-    const forms = document.querySelectorAll('form');
+    // Scope JS to admin container only to avoid interfering with non-admin forms
+    const adminRoot = document.querySelector('.admin-container');
+    if (!adminRoot) return;
+
+    // Handle form submissions only inside admin container
+    const forms = adminRoot.querySelectorAll('form');
     forms.forEach(form => {
         form.addEventListener('submit', function(e) {
             // Client-side validation
@@ -97,13 +101,13 @@ function initializeAdmin() {
             
             if (!isValid) {
                 e.preventDefault();
-                alert('দয়া করে সব প্রয়োজনীয় তথ্য পূরণ করুন');
+                alert('দয়া করুন সব প্রয়োজনীয় তথ্য পূরণ করুন');
             }
         });
     });
     
-    // Handle image preview
-    const imageInputs = document.querySelectorAll('input[type="file"]');
+    // Handle image preview only in admin container
+    const imageInputs = adminRoot.querySelectorAll('input[type="file"]');
     imageInputs.forEach(input => {
         input.addEventListener('change', function(e) {
             const file = e.target.files[0];
@@ -135,8 +139,8 @@ function initializeAdmin() {
         });
     });
     
-    // Confirm delete actions
-    const deleteButtons = document.querySelectorAll('.delete-btn');
+    // Confirm delete actions inside admin
+    const deleteButtons = adminRoot.querySelectorAll('.delete-btn');
     deleteButtons.forEach(button => {
         button.addEventListener('click', function(e) {
             if (!confirm('আপনি কি নিশ্চিত যে আপনি এই আইটেমটি মুছে ফেলতে চান?')) {
