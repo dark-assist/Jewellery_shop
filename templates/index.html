@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>মানালী জুয়েলার্স - আপনার বিশ্বস্ত জুয়েলারি দোকান</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 15px;
+            background-color: white;
+        }
+        
+        .gold-rate-card {
+            background: linear-gradient(135deg, #f9f3e9 0%, #fff9f0 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 2px solid #D4AF37;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.1);
+        }
+        
+        .gold-rate-title {
+            text-align: center;
+            color: #D4AF37;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #D4AF37;
+        }
+        
+        .rate-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .rate-item:last-child {
+            border-bottom: none;
+        }
+        
+        .rate-label {
+            font-size: 18px;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        .rate-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #D4AF37;
+        }
+        
+        .rate-time {
+            font-size: 14px;
+            color: #777;
+            font-style: italic;
+        }
+        
+        .section-title {
+            text-align: center;
+            color: #D4AF37;
+            font-size: 22px;
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #D4AF37;
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            border-color: #D4AF37;
+        }
+        
+        .category-icon {
+            font-size: 40px;
+            color: #D4AF37;
+            margin-bottom: 10px;
+        }
+        
+        .category-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        .shop-info {
+            background: #f9f9f9;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            text-align: center;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .shop-name {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .shop-area {
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 18px;
+        }
+        
+        .contact-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            border: none;
+            transition: all 0.3s;
+            gap: 12px;
+        }
+        
+        .btn-call {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+        }
+        
+        .btn-map {
+            background: #4285F4;
+            color: white;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        @media (min-width: 768px) {
+            .container {
+                max-width: 800px;
+                padding: 20px;
+            }
+            
+            .contact-buttons {
+                flex-direction: row;
+                justify-content: center;
+            }
+            
+            .btn {
+                min-width: 200px;
+            }
+            
+            .categories-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Top Section - Gold Rate -->
+        <div class="gold-rate-card">
+            <h2 class="gold-rate-title">আজকের সোনার দর</h2>
+            <div class="rate-details">
+                <div class="rate-item">
+                    <span class="rate-label">২২ ক্যারেট সোনা:</span>
+                    <span class="rate-value">₹{{ "%.2f"|format(gold_rate.gold_22k) }} / গ্রাম</span>
+                </div>
+                <div class="rate-item">
+                    <span class="rate-label">চাঁদি:</span>
+                    <span class="rate-value">₹{{ "%.2f"|format(gold_rate.silver) }} / গ্রাম</span>
+                </div>
+                <div class="rate-item">
+                    <span class="rate-label">সেবা আপডেট:</span>
+                    <span class="rate-time">{{ gold_rate.updated_at.strftime('%I:%M %p') }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories Section -->
+        <h2 class="section-title">জুয়েলারি ক্যাটেগরি</h2>
+        <div class="categories-grid">
+            {% for category in categories %}
+            <a href="#" class="category-card" onclick="alert('শীঘ্রই আসছে!');">
+                <div class="category-icon">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <h3 class="category-name">{{ category.name_bn }}</h3>
+            </a>
+            {% endfor %}
+        </div>
+
+        <!-- Shop Information -->
+        <div class="shop-info">
+            <h2 class="shop-name">{{ shop_name }}</h2>
+            <p class="shop-area">{{ shop_area }}</p>
+            
+            <div class="contact-buttons">
+                <a href="tel:{{ shop_phone }}" class="btn btn-call">
+                    <i class="fas fa-phone"></i> কল করুন
+                </a>
+                <a href="https://wa.me/{{ shop_whatsapp }}?text=মানালী%20জুয়েলার্স%20থেকে%20জানতে%20চাই" 
+                   class="btn btn-whatsapp" 
+                   target="_blank">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+                <a href="#" class="btn btn-map" onclick="alert('Google Map শীঘ্রই যোগ করা হবে!');">
+                    <i class="fas fa-map-marker-alt"></i> Google Map
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auto-update rates every 5 minutes
+        setInterval(function() {
+            fetch('/api/rates')
+                .then(response => response.json())
+                .then(data => {
+                    document.querySelector('.rate-item:first-child .rate-value').textContent = 
+                        `₹${data.gold_22k.toFixed(2)} / গ্রাম`;
+                    document.querySelector('.rate-item:nth-child(2) .rate-value').textContent = 
+                        `₹${data.silver.toFixed(2)} / গ্রাম`;
+                    document.querySelector('.rate-item:last-child .rate-time').textContent = 
+                        data.updated_at;
+                });
+        }, 300000); // 5 minutes
+    </script>
+</body>
+</html>

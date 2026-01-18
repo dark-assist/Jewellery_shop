@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.name_bn }} - মানালী জুয়েলার্স{% endblock %}
+
+{% block content %}
+<!-- Product Images -->
+<div class="product-images">
+    {% if product.images %}
+        {% set images = product.images.split(',') %}
+        {% for image in images %}
+        <div class="product-image">
+            <img src="{{ url_for('static', filename=image) }}" 
+                 alt="{{ product.name_bn }}"
+                 onclick="zoomImage(this)">
+        </div>
+        {% endfor %}
+    {% else %}
+    <div class="product-image">
+        <img src="{{ url_for('static', filename='images/default-jewellery.jpg') }}" 
+             alt="{{ product.name_bn }}">
+    </div>
+    {% endif %}
+</div>
+
+<!-- Product Details -->
+<div class="product-details">
+    <h1 class="product-title">{{ product.name_bn }}</h1>
+    
+    {% if product.description_bn %}
+    <p class="product-description">{{ product.description_bn }}</p>
+    {% endif %}
+    
+    <div class="details-grid">
+        <div class="detail-item">
+            <span class="detail-label">খাঁটিত্ব:</span>
+            <span class="detail-value">{{ product.purity }}</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">ওজন:</span>
+            <span class="detail-value">{{ "%.2f"|format(product.weight) }} গ্রাম</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">মেকিং চার্জ:</span>
+            <span class="detail-value">₹{{ "%.2f"|format(product.making_charge) }} / গ্রাম</span>
+        </div>
+        <div class="detail-item">
+            <span class="detail-label">স্টক অবস্থা:</span>
+            <span class="detail-value {{ 'in-stock' if product.stock_status == 'In Stock' else 'out-of-stock' }}">
+                {{ product.stock_status }}
+            </span>
+        </div>
+    </div>
+</div>
+
+<!-- Price Box -->
+<div class="price-box">
+    <h3 class="price-title gold-text">আজকের আনুমানিক দাম</h3>
+    <div class="price-amount">
+        ₹{{ "{:,}".format(calculated_price) }}
+    </div>
+    <p class="price-disclaimer">চূড়ান্ত দাম দোকানে নির্ধারিত হবে</p>
+    
+    <div class="action-buttons">
+        <a href="tel:{{ shop_phone }}" class="btn btn-call-large">
+            <i class="fas fa-phone"></i> কল করুন
+        </a>
+        <a href="https://wa.me/{{ shop_whatsapp }}?text=আমি {{ product.name_bn }} সম্পর্কে জানতে চাই - আনুমানিক দাম: ₹{{ calculated_price }}" 
+           class="btn btn-whatsapp-large"
+           target="_blank">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function zoomImage(img) {
+    // Simple image zoom for mobile
+    if (window.innerWidth < 768) {
+        img.classList.toggle('zoomed');
+    }
+}
+</script>
+{% endblock %}

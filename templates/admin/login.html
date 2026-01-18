@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="admin-container">
+    <div class="admin-header">
+        <h1>মানালী জুয়েলার্স - অ্যাডমিন লগইন</h1>
+    </div>
+    
+    <div class="admin-form">
+        <form method="POST">
+            <div class="form-group">
+                <label for="username">ইউজারনেম:</label>
+                <input type="text" id="username" name="username" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">পাসওয়ার্ড:</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+            
+            <button type="submit" class="btn-admin">লগইন করুন</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
