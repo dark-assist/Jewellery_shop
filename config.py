@@ -24,8 +24,8 @@ class Config:
     # Shop info (ensure all are present)
     SHOP_NAME = "মানালী জুয়েলার্স"
     SHOP_AREA = "কুথানগর, নজিরা"
-    SHOP_PHONE = "+919876543210"
-    SHOP_WHATSAPP = "919876543210"
+    SHOP_PHONE = ""
+    SHOP_WHATSAPP = ""
 
     # Session / cookies (development-friendly defaults)
     # In production set SESSION_COOKIE_SECURE = True and use HTTPS
